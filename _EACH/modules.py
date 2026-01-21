@@ -45,10 +45,18 @@ def select(moduleIdentifier,selectedSettings,moduleData):
             # Does not perform any real processing; for demonstration only.
             proteins = exampleModule(moduleIdentifier,selectedSettings,moduleData)
             return virtualSDSPage_2DGaussian(proteins)
+        case "PAGE":
+            proteins = PAGE_example_module(moduleIdentifier,selectedSettings,moduleData)
+            return virtualSDSPage_2DGaussian(proteins)
         case _: # Add new modules above 
             # Do not add modules below
             raise NotImplementedError(f"Module: {moduleIdentifier} is not implemented yet.")
         
+def PAGE_example_module(moduleIdentifier,selectedSettings,moduleData):
+   hiabc =  extractSetting("Molecular weight cutoff (kDa)",moduleIdentifier, selectedSettings,moduleData)
+   hi123 =  extractSetting("Deplete proteins above/below cutoff",moduleIdentifier, selectedSettings,moduleData)
+
+   return 
 
 def fasta_input(moduleIdentifier, selectedSettings,moduleData):
     """

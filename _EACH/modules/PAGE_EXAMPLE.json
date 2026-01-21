@@ -1,6 +1,6 @@
 {
-"PAGE_example_module": {
-"id": "PAGE_example_module",
+"PAGE": {
+"id": "PAGE",
 "title": "PAGE_Example Module",
 "subtitle": "SDS: A protein race where size decides the winner",
 "icon": "icons/modules/gelElectrophoresis.svg",
