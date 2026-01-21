@@ -6,21 +6,28 @@
 "icon": "icons/modules/gelElectrophoresis.svg",
 "settings": {
 
-    "Deplete proteins above/below cutoff": {
+    "Keep inside/outside of molecular weight range": {
         "formtype": "ChoiceField",
-        "options": {"Deplete Proteins below cutoff": ["depletelow"],
-                    "Deplete Proteins above cutoff": ["depleteabove"]
+        "options": {"Keep inside range": ["keep_inside"],
+                    "Keep outside range": ["keep_outside"]
                     }
                 },
 
 
     
-    "Molecular weight cutoff (kDa)": {
+    "Min weight (kDa)": {
         "formtype": "DecimalField",
         "default": 5,
         "min": 0,
-        "max": 2,
-        "step": 0.01}
+        "max": 100,
+        "step": 0.1},
+
+     "Max weight (kDa)": {
+        "formtype": "DecimalField",
+        "default": 90,
+        "min": 0,
+        "max": 100,
+        "step": 0.1}
 
 
 
