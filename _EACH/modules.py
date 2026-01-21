@@ -55,8 +55,11 @@ def select(moduleIdentifier,selectedSettings,moduleData):
 def PAGE_example_module(moduleIdentifier,selectedSettings,moduleData):
    hiabc =  extractSetting("Molecular weight cutoff (kDa)",moduleIdentifier, selectedSettings,moduleData)
    hi123 =  extractSetting("Deplete proteins above/below cutoff",moduleIdentifier, selectedSettings,moduleData)
+   print (hiabc, hi123)
+   
 
-   return 
+   return Protein.getAllProteins()
+
 
 def fasta_input(moduleIdentifier, selectedSettings,moduleData):
     """
