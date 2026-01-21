@@ -49,26 +49,50 @@ def select(moduleIdentifier,selectedSettings,moduleData):
             # Do not add modules below
             raise NotImplementedError(f"Module: {moduleIdentifier} is not implemented yet.")
        
-#code build by PAGE team        
+#code build by PAGE team   
         case "PAGE":
             proteins = SDS_PAGE(moduleIdentifier,selectedSettings,moduleData)
             return virtualSDSPage_2DGaussian(proteins)
-       
+        
+# Define reference values as dictionaries (these should be at module level or in a config)
+Buffer_value = {
+    "MES": (2.5, 260),
+    "MOPS": (10, 260),
+    "fix_12": (20, 250),
+    "grad_4-12": (30, 250),
+}
+
+Dye_value = {
+    "Cu": 0.0033,
+    "Ag": 1.67e-05,
+    "SYPRO": 8.3e-06,
+}
+
+# Map gel types to compatible buffers
+GEL_TYPE_TO_BUFFERS = {
+    "Bis-Tris": ["MES", "MOPS"],
+    "Tris-Glycine": ["fix_12", "grad_4-12"]
+}
+    
 def SDS_PAGE(moduleIdentifier,selectedSettings,moduleData):
-        Min_weight =  extractSetting("Min weight (kDa)",moduleIdentifier, selectedSettings,moduleData)
-        Max_weight =  extractSetting("Max weight (kDa)",moduleIdentifier, selectedSettings,moduleData)
+        Gel_type =  extractSetting("Gel type",moduleIdentifier, selectedSettings,moduleData)
+        Buffer_type =  extractSetting("Buffer or %gel",moduleIdentifier, selectedSettings,moduleData)
+        Dye =  extractSetting("Dye",moduleIdentifier, selectedSettings,moduleData)
         Selection_type =  extractSetting("Keep inside/outside of molecular weight range",moduleIdentifier, selectedSettings,moduleData)
-        print(f"Min weight = {Min_weight}")
-        print(f"Max weight = {Max_weight}")
-   
+
+        # Get reference values using .get()
+        buffer_ref = Buffer_value.get(Buffer_type)
+        dye_ref = Dye_value.get(Dye)
+
         for protein in Protein.getAllProteins():
             if  Selection_type == "keep_inside":
-                if not (Min_weight <= protein.weight <= Max_weight):
-                    protein.set_abundance(0.0)  
+                if not (min(buffer_ref) <= protein.weight <= max(buffer_ref)):
+                    if protein.abundance < dye_ref:
+                        protein.set_abundance(0.0)
             elif Selection_type == "keep_outside":
-                if (Min_weight <= protein.weight <= Max_weight):
-                    protein.set_abundance(0.0)
-
+                if (min(buffer_ref) <= protein.weight <= max(buffer_ref)):
+                    if protein.abundance < dye_ref:
+                        protein.set_abundance(0.0)
         return Protein.getAllProteins()
 
 def fasta_input(moduleIdentifier, selectedSettings,moduleData):

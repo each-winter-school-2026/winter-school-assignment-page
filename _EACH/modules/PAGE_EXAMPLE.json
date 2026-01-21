@@ -13,22 +13,29 @@
                     }
                 },
 
-
+   "Gel type": {
+        "formtype": "ChoiceField",
+        "options": {"Bis-Tris": "Bis-Tris",
+                    "Tris-Glycine": "Tris-Glycine"
+                    }
+                },
     
-    "Min weight (kDa)": {
-        "formtype": "DecimalField",
-        "default": 5.0,
-        "min": 0.0,
-        "max": 100.0,
-        "step": 0.1},
+    "Buffer or %gel": {
+        "formtype": "ChoiceField",
+        "options": {"MES": "MES",
+                    "MOPS": "MOPS",
+                    "fix_12%": "fix_12",
+                    "gradient_4-12%": "grad_4-12"
+                    }
+                },
 
-     "Max weight (kDa)": {
-        "formtype": "DecimalField",
-        "default": 90.0,
-        "min": 0.0,
-        "max": 100.0,
-        "step": 0.1}
-
+    "Dye": {
+        "formtype": "ChoiceField",
+        "options": {"Coomassie Brilliant Blue R": "Cu", 
+                    "Silver staining": "Ag",
+                    "SYPRO Protein Gel Precipitation": "SYPRO"
+                    }
+                }          
 
 
         }
