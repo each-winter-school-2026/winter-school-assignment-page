@@ -57,6 +57,9 @@ def PAGE_example_module(moduleIdentifier,selectedSettings,moduleData):
    hi123 =  extractSetting("Deplete proteins above/below cutoff",moduleIdentifier, selectedSettings,moduleData)
    print (hiabc, hi123)
    
+   for protein in Protein.getAllProteins():
+       if protein.weight > hiabc:
+           protein.set_abundance(0.0)  
 
    return Protein.getAllProteins()
 
