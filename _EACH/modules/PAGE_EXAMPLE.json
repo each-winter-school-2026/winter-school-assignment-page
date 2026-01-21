@@ -2,8 +2,8 @@
 "PAGE_example_module": {
 "id": "PAGE_example_module",
 "title": "PAGE_Example Module",
-"subtitle": "An example module for demonstration purposes",
-"icon": "icons/modules/placeholder.svg",
+"subtitle": "SDS: A protein race where size decides the winner",
+"icon": "icons/modules/gelElectrophoresis.svg",
 "settings": {
 
     "Single choice field": {
