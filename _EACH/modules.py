@@ -45,24 +45,31 @@ def select(moduleIdentifier,selectedSettings,moduleData):
             # Does not perform any real processing; for demonstration only.
             proteins = exampleModule(moduleIdentifier,selectedSettings,moduleData)
             return virtualSDSPage_2DGaussian(proteins)
-        case "PAGE":
-            proteins = PAGE_example_module(moduleIdentifier,selectedSettings,moduleData)
-            return virtualSDSPage_2DGaussian(proteins)
-        case _: # Add new modules above 
+        case "example_module": # Add new modules above 
             # Do not add modules below
             raise NotImplementedError(f"Module: {moduleIdentifier} is not implemented yet.")
-        
-def PAGE_example_module(moduleIdentifier,selectedSettings,moduleData):
-   hiabc =  extractSetting("Molecular weight cutoff (kDa)",moduleIdentifier, selectedSettings,moduleData)
-   hi123 =  extractSetting("Deplete proteins above/below cutoff",moduleIdentifier, selectedSettings,moduleData)
-   print (hiabc, hi123)
+       
+#code build by PAGE team        
+        case "PAGE":
+            proteins = SDS_PAGE(moduleIdentifier,selectedSettings,moduleData)
+            return virtualSDSPage_2DGaussian(proteins)
+       
+def SDS_PAGE(moduleIdentifier,selectedSettings,moduleData):
+        Min_weight =  extractSetting("Min weight (kDa)",moduleIdentifier, selectedSettings,moduleData)
+        Max_weight =  extractSetting("Max weight (kDa)",moduleIdentifier, selectedSettings,moduleData)
+        Selection_type =  extractSetting("Keep inside/outside of molecular weight range",moduleIdentifier, selectedSettings,moduleData)
+        print(f"Min weight = {Min_weight}")
+        print(f"Max weight = {Max_weight}")
    
-   for protein in Protein.getAllProteins():
-       if protein.weight > hiabc:
-           protein.set_abundance(0.0)  
+        for protein in Protein.getAllProteins():
+            if  Selection_type == "keep_inside":
+                if not (Min_weight <= protein.weight <= Max_weight):
+                    protein.set_abundance(0.0)  
+            elif Selection_type == "keep_outside":
+                if (Min_weight <= protein.weight <= Max_weight):
+                    protein.set_abundance(0.0)
 
-   return Protein.getAllProteins()
-
+        return Protein.getAllProteins()
 
 def fasta_input(moduleIdentifier, selectedSettings,moduleData):
     """

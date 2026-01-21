@@ -1,15 +1,15 @@
 {
 "PAGE": {
 "id": "PAGE",
-"title": "PAGE_Example Module",
+"title": "HATE_SDS PAGE",
 "subtitle": "SDS: A protein race where size decides the winner",
 "icon": "icons/modules/gelElectrophoresis.svg",
 "settings": {
 
     "Keep inside/outside of molecular weight range": {
         "formtype": "ChoiceField",
-        "options": {"Keep inside range": ["keep_inside"],
-                    "Keep outside range": ["keep_outside"]
+        "options": {"Keep inside range": "keep_inside",
+                    "Keep outside range": "keep_outside"
                     }
                 },
 
@@ -17,16 +17,16 @@
     
     "Min weight (kDa)": {
         "formtype": "DecimalField",
-        "default": 5,
-        "min": 0,
-        "max": 100,
+        "default": 5.0,
+        "min": 0.0,
+        "max": 100.0,
         "step": 0.1},
 
      "Max weight (kDa)": {
         "formtype": "DecimalField",
-        "default": 90,
-        "min": 0,
-        "max": 100,
+        "default": 90.0,
+        "min": 0.0,
+        "max": 100.0,
         "step": 0.1}
 
 
