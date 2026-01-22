@@ -63,6 +63,7 @@ Buffer_value = {
 }
 
 Dye_value = {
+
     "Cu": 0.0033,
     "Ag": 1.67e-05,
     "SYPRO": 8.3e-06,
@@ -70,13 +71,11 @@ Dye_value = {
 
 # Map gel types to compatible buffers
 GEL_TYPE_TO_BUFFERS = {
-    "Bis-Tris": ["MES", "MOPS"],
-    "Tris-Glycine": ["fix_12", "grad_4-12"]
-}
+"Bis-Tris": ["MES", "MOPS"],
+"Tris-Glycine": ["fix_12", "grad_4-12"]}
     
 def SDS_PAGE(moduleIdentifier,selectedSettings,moduleData):
-        Gel_type =  extractSetting("Gel type",moduleIdentifier, selectedSettings,moduleData)
-        Buffer_type =  extractSetting("Buffer or %gel",moduleIdentifier, selectedSettings,moduleData)
+        Buffer_type =  extractSetting("Buffer or gel",moduleIdentifier, selectedSettings,moduleData)
         Dye =  extractSetting("Dye",moduleIdentifier, selectedSettings,moduleData)
         Selection_type =  extractSetting("Keep inside/outside of molecular weight range",moduleIdentifier, selectedSettings,moduleData)
 
@@ -84,16 +83,22 @@ def SDS_PAGE(moduleIdentifier,selectedSettings,moduleData):
         buffer_ref = Buffer_value.get(Buffer_type)
         dye_ref = Dye_value.get(Dye)
 
+
+
         for protein in Protein.getAllProteins():
-            if  Selection_type == "keep_inside":
-                if not (min(buffer_ref) <= protein.weight <= max(buffer_ref)):
-                    if protein.abundance < dye_ref:
-                        protein.set_abundance(0.0)
+            min_ref, max_ref = buffer_ref
+            in_range = min_ref <= protein.weight <= max_ref
+
+            if Selection_type == "keep_inside":
+                if not in_range and protein.abundance > dye_ref:
+                    protein.set_abundance(0.0)
+
             elif Selection_type == "keep_outside":
-                if (min(buffer_ref) <= protein.weight <= max(buffer_ref)):
-                    if protein.abundance < dye_ref:
-                        protein.set_abundance(0.0)
+                if in_range and protein.abundance < dye_ref:
+                    protein.set_abundance(0.0)
+
         return Protein.getAllProteins()
+
 
 def fasta_input(moduleIdentifier, selectedSettings,moduleData):
     """

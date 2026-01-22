@@ -11,7 +11,8 @@
         "formtype": "ChoiceField",
         "options": {"Human blood serum": "data/proteomes/Human/humanProteome_bloodSerumAbundance.fasta",
                     "Arabidopsis leaf": "data/proteomes/Arabidopsis/proteomeArabidopsis_with_abundance.fasta",
-                    "Three protein Proteome - Human blood serum": "data/proteomes/Human/humanThreeProtein_bloodSerumAbundance.fasta"
+                    "Three protein Proteome - Human blood serum": "data/proteomes/Human/humanThreeProtein_bloodSerumAbundance.fasta",
+                    "small and large proteins": "data/proteomes/Human/smallAndLargeProteins.fasta"
                 }
             }
         }

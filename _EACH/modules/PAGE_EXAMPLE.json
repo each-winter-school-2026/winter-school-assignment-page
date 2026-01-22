@@ -12,20 +12,13 @@
                     "Keep outside range": "keep_outside"
                     }
                 },
-
-   "Gel type": {
-        "formtype": "ChoiceField",
-        "options": {"Bis-Tris": "Bis-Tris",
-                    "Tris-Glycine": "Tris-Glycine"
-                    }
-                },
     
-    "Buffer or %gel": {
+    "Buffer or gel": {
         "formtype": "ChoiceField",
-        "options": {"MES": "MES",
-                    "MOPS": "MOPS",
-                    "fix_12%": "fix_12",
-                    "gradient_4-12%": "grad_4-12"
+        "options": {"Bis-Tris_12%_MES": "MES",
+                    "Bis-Tris_12%_MOPS": "MOPS",
+                    "Tris-Glycine_fix12%": "fix_12",
+                    "Tris-Glycine_gradient_4-12%": "grad_4-12"
                     }
                 },
 
